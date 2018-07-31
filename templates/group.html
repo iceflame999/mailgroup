@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>mailgroup</title>
+</head>
+<body>
+<h1>ROOBO</h1>
+<style>
+    .group {
+        width: 30%;
+        height: 600px;
+        float: left;
+        overflow: auto;
+        border: 1px solid #F00
+    }
+    .groupmanager {
+        width: 30%;
+        height: 200px;
+        float: left;
+        margin-top:20px;
+        overflow: auto;
+        border: 1px solid #F00
+    }
+
+    .groupuser {
+        width: 50%;
+        height: 600px;
+        float: left;
+        margin-left:50px;
+        overflow: auto;
+        border: 1px solid #00F
+    }
+    .usermanager {
+        width: 50%;
+        height: 200px;
+        float: left;
+        margin-left:50px;
+        margin-top:20px;
+        overflow: auto;
+        border: 1px solid #00F
+    }
+</style>
+<form action="/group/" method="post">
+    <div class="group" id="group_container">
+        <table border="1">
+            <tr>
+                <td>
+                    群组邮箱
+                </td>
+                <td>
+                    群组名称
+                </td>
+            </tr>
+            {% for line in group_list %}
+                <tr>
+                    <td><input name="id" type="submit" onclick="location.href=/group/" value="{{ line.0 }}"
+                               style="border:0;cursor:pointer;background-color:transparent"/></td>
+                    <td>{{ line.1 }}</td>
+                    {% if line.0 in adminlist %}
+                        <td style="border: none">可管理</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="groupuser" id="main">
+        <table border="1">
+            {% for user in userlist %}
+            <tr><td>{{ user }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="groupmanager" id="group_manager">
+        <table>
+            <tr><td>群组邮箱：</td><td><input name="groupid" type="text" ></td><td>群组名称：</td><td><input name="groupname" type="text" ></td></tr>
+            <tr><td><input name="increase" type="submit" value="新增"></td><td><input name="delete" type="submit" value="删除"></td></tr>
+        </table>
+        {{ increase_label }}
+        <table>
+            <tr><td>群组邮箱：</td><td><input name="admin_groupid" type="text" ></td><td>用户邮箱：</td><td><input name="admin_user" type="text" ></td></tr>
+            <tr><td><input name="poweron" type="submit" value="授权"></td><td><input name="poweroff" type="submit" value="除权"></td></tr>
+        </table>
+        {{ label3 }}
+    </div>
+    <div class="usermanager" id="user_manager">
+        <table>
+            <tr><td>邮    箱：</td><td><input name="userid" type="text" ></td></tr>
+            <tr><td><input name="add" type="submit" value="添加"></td><td><input name="remove" type="submit" value="移除"></td></tr>
+        </table>
+        {{ increase_labe2 }}
+    </div>
+</form>
+</body>
+</html>
